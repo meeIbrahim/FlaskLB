@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  daemon:
+    image: lb-daemon
+    container_name: lb-daemon
+    build: ./daemon/.
+    volumes:
+      - /app
+  flask:
+    image: flask-image
+    container_name: flask-1
+    build: ./flask_app/.
+  ha_proxy:
+    build: ./ha_proxy/.
+    container_name: ha_proxy
+    ports:
+      - "5000:80"
+    volumes_from: 
+      - daemon:/usr/local/etc/haproxy:ro
+networks:
+    default:
+      name: flask-lb
+      driver: bridge
