@@ -24,7 +24,6 @@ class Daemon:
             flask_servers = [container for container in running_containers if container.name != HAPROXY if container.name != DAEMON]
             total_cpu = 0
             server_count = len(flask_servers)
-            print(f"Server Count: {server_count}")
             if server_count == 0:
                 continue
             for server in flask_servers:
@@ -33,10 +32,10 @@ class Daemon:
             if cpu > CPU_THRESHOLD:
                 start_time = 0
                 self.startContainer(server_count)
-            elif cpu < 5 and server_count > 1:
+            elif cpu < 20 and server_count > 1:
                 if start_time == 0:
                     start_time = time.time()
-                elif (time.time()-start_time) == 5:
+                elif (time.time()-start_time) > 5:
                     self.stopContainer(server_count)
                     
     def __del__(self):
