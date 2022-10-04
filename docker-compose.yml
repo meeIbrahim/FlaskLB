@@ -6,7 +6,8 @@ services:
     container_name: lb-daemon
     build: ./daemon/.
     volumes:
-      - /app
+      - proxy_cfg:/app/haproxy:rw
+      - /var/run/docker.sock:/var/run/docker.sock
   flask:
     image: flask-image
     container_name: flask-1
@@ -16,9 +17,13 @@ services:
     container_name: ha_proxy
     ports:
       - "5000:80"
-    volumes_from: 
-      - daemon:/usr/local/etc/haproxy:ro
+    volumes: 
+      - proxy_cfg:/usr/local/etc/haproxy:ro
 networks:
     default:
       name: flask-lb
       driver: bridge
+
+volumes:
+  proxy_cfg:
+

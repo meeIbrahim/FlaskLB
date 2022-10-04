@@ -10,4 +10,4 @@ COPY . /app
 
 ENTRYPOINT [ "python" ]
 
-CMD [ "docker_controller.py" ]
+CMD [ "-u","docker_controller.py" ]
