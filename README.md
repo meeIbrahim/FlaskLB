@@ -3,13 +3,15 @@
 ## Running The Application
 
 ### Pre-requisites:
-  - Docker Engine and Docker Compose installed
+  - Docker Engine
+  - Docker Compose
   - Linux OS
 
 ### Running the Application
   - Clone the main branch
   - CD into the directoy
   - Run "docker compose up -d"
+  - To Stop: Run "docker compose -v --remove-orphans"
   
 ### Application Working
   Multi Container App that includes one haproxy loadbalancer, one daemon to control child containers and one flask application container.
